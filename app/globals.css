@@ -4,16 +4,9 @@
 
 /* ─── Only things Tailwind can't handle ─── */
 
-/* Background Grid (requires repeating linear-gradient) */
+/* Background Grid (Removed to allow pure black/stars aesthetic) */
 .grid-bg {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 28px 28px;
+  display: none;
 }
 
 /* Noise overlay (requires SVG data URI) */

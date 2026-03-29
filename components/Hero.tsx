@@ -11,6 +11,87 @@ const TERMINAL_LINES = [
   { cmd: "$ status", out: "available for new projects ●" },
 ];
 
+/**
+ * ── GALAXY STARFIELD CANVAS ──
+ * High-performance drifting stars background.
+ */
+const Starfield = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let stars: { x: number; y: number; radius: number; vx: number; vy: number; opacity: number; pulse: number }[] = [];
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initStars();
+    };
+
+    const initStars = () => {
+      stars = [];
+      const numStars = Math.floor((canvas.width * canvas.height) / 2500); // Density of galaxy
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.2 + 0.2, // dynamic sizes
+          vx: (Math.random() - 0.5) * 0.15, // ultra-slow drift
+          vy: (Math.random() - 0.5) * 0.15,
+          opacity: Math.random(),
+          pulse: (Math.random() - 0.5) * 0.02, // twinkling pulse rate
+        });
+      }
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      stars.forEach((star) => {
+        // Apply drifting physics
+        star.x += star.vx;
+        star.y += star.vy;
+
+        // Twinkling logic
+        star.opacity += star.pulse;
+        if (star.opacity > 1 || star.opacity < 0.1) {
+          star.pulse = -star.pulse;
+        }
+
+        // Infinite screen wrap
+        if (star.x < 0) star.x = canvas.width;
+        if (star.x > canvas.width) star.x = 0;
+        if (star.y < 0) star.y = canvas.height;
+        if (star.y > canvas.height) star.y = 0;
+
+        // Render circular star
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
+    draw();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none opacity-80" />;
+};
+
 export default function Hero({ loaded }: { loaded: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -137,6 +218,8 @@ export default function Hero({ loaded }: { loaded: boolean }) {
       ref={sectionRef}
       className="relative h-[100svh] w-full flex flex-col justify-between bg-transparent overflow-hidden z-[2] px-6 lg:px-10 pb-6"
     >
+      <Starfield />
+
       {/* ── TOP ROW ── */}
       <div className="flex flex-col md:flex-row items-start justify-between pt-28 lg:pt-32 relative z-10 pointer-events-none gap-6 md:gap-0">
         {/* Top-left: index + subtitle */}

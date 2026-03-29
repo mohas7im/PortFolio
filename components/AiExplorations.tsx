@@ -3,28 +3,61 @@ import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const aiProjects = [
-  { title: "AGENTIC WORKFLOWS", desc: "Autonomous agents for complex reasoning and enterprise API interaction.", tag: "LANGCHAIN · AUTOGPT" },
-  { title: "RAG SYSTEMS", desc: "Retrieval-Augmented Generation using vector databases for accurate search.", tag: "PINECONE · OPENAI" },
-  { title: "CONTEXT PROTOCOLS", desc: "Bridging isolated data sources using standardized LLM context injection.", tag: "ARCHITECTURE · API" },
-  { title: "LOCAL DEPLOYMENT", desc: "Running quantized models locally for absolute privacy and zero latency.", tag: "OLLAMA · LLAMA 3" },
+  { 
+    title: "AGENTIC WORKFLOWS", 
+    desc: "Autonomous LLM agents designed to handle complex reasoning, iterate over multi-step tasks, and natively interact with isolated enterprise APIs without human intervention.", 
+    tag: "LANGCHAIN · AUTOGPT" 
+  },
+  { 
+    title: "RAG SYSTEMS", 
+    desc: "Production-grade Retrieval-Augmented Generation architectures. I utilize advanced vector databases like Pinecone to eliminate hallucinations and search massive proprietary text corpuses securely.", 
+    tag: "PINECONE · OPENAI" 
+  },
+  { 
+    title: "CONTEXT PROTOCOLS", 
+    desc: "Bridging isolated legacy data sources using standardized LLM context injection. Developing universal middleware that feeds exact state data straight into reasoning models in real-time.", 
+    tag: "ARCHITECTURE · API" 
+  },
+  { 
+    title: "LOCAL DEPLOYMENT", 
+    desc: "Deploying and orchestrating quantized open-source models (Llama 3, Mistral) directly onto bare-metal internal servers to guarantee absolute data privacy, zero-latency, and zero API costs.", 
+    tag: "OLLAMA · LLAMA 3" 
+  },
 ];
 
 export default function AiExplorations() {
   const sectionRef = useRef<HTMLElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
-      // Setup entrance animation
-      gsap.from(sectionRef.current, {
+      // Setup entrance animation for header
+      gsap.from(".ai-header-content", {
         scrollTrigger: { trigger: sectionRef.current, start: "top 85%", once: true },
-        y: 60, opacity: 0, duration: 0.9, ease: "power2.out",
+        y: 40, opacity: 0, duration: 0.9, stagger: 0.1, ease: "power2.out",
       });
-      gsap.from(cardsRef.current.filter(Boolean), {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 80%", once: true },
-        y: 70, opacity: 0, stagger: 0.13, duration: 0.8, ease: "power2.out",
-      });
+
+      // Pin and Horizontal Scroll Logic
+      const container = scrollContainerRef.current;
+      if (container) {
+        gsap.to(container, {
+          x: () => {
+            // Translate left by the total width of the inner track minus viewport size
+            return -(container.scrollWidth - window.innerWidth + 80);
+          },
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: () => `+=${container.scrollWidth}`, // scroll distance proportional to track width
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true, // Recalculate if window resizes!
+          }
+        });
+      }
 
       // Setup 3D Hover Tilt Effect
       cardsRef.current.forEach((card) => {
@@ -112,14 +145,16 @@ export default function AiExplorations() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="ai" className="py-24 px-10 relative bg-bg border-t border-white/[0.08] z-[2]">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="text-[0.65rem] tracking-[0.2em] text-white/30 mb-8 uppercase font-bold flex items-center gap-3">
+    <section ref={sectionRef} id="ai" className="h-[100vh] w-full flex flex-col justify-center gap-6 lg:gap-10 pt-[80px] relative bg-bg border-t border-white/[0.08] z-[2] overflow-hidden">
+      
+      {/* Header Block — Stays Pinned Automatically via Section parent */}
+      <div className="max-w-[1400px] w-full mx-auto px-6 md:px-10 shrink-0">
+        <div className="ai-header-content text-[0.65rem] tracking-[0.2em] text-white/30 mb-3 uppercase font-bold flex items-center gap-3">
           <div className="w-8 h-px bg-white/30" />
           05 — AI Explorations
         </div>
 
-        <div className="flex flex-col lg:flex-row justify-between lg:items-end mb-16 gap-8">
+        <div className="ai-header-content flex flex-col lg:flex-row justify-between lg:items-end gap-8">
           <h2 className="font-heading text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-[-0.04em] leading-[0.9] uppercase text-white/90">
             THE FRONTIER
           </h2>
@@ -127,30 +162,50 @@ export default function AiExplorations() {
             Actively researching state-of-the-art AI. Focused on practical applied systems, not theoretical wrappers.
           </p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8" style={{ perspective: "1500px" }}>
+      {/* Horizontal Scroll Track Wrapper */}
+      <div className="w-full shrink-0">
+        {/* Track Container — dynamically widths itself, translating X during scroll */}
+        <div 
+          ref={scrollContainerRef} 
+          className="flex gap-4 md:gap-6 w-max px-6 md:px-[max(40px,calc((100vw-1400px)/2+40px))] will-change-transform"
+          style={{ perspective: "1500px" }}
+        >
           {aiProjects.map((p, i) => (
             <div
               key={i}
               ref={(el) => { cardsRef.current[i] = el; }}
-              className="product-card-wrapper h-full w-full"
+              className="product-card-wrapper shrink-0 w-[85vw] sm:w-[450px] md:w-[500px] lg:w-[580px]"
             >
               <div 
-                className="ai-inner group relative bg-[#0A0A0A] border border-white/[0.08] bg-opacity-80 rounded-2xl flex flex-col justify-between min-h-[300px] overflow-hidden transition-colors duration-300 hover:border-white/[0.15] w-full h-full"
+                className="ai-inner group relative bg-[#060606] shadow-2xl border border-white/[0.06] bg-opacity-90 rounded-2xl flex flex-col justify-between h-[55vh] min-h-[380px] max-h-[500px] overflow-hidden transition-colors duration-300 hover:border-white/[0.15] w-full"
                 style={{ transformStyle: "preserve-3d" }}
               >
-                <div className="card-inner-content p-10 flex flex-col justify-between h-full pointer-events-none z-10">
+                <div className="card-inner-content p-8 md:p-10 flex flex-col justify-between h-full pointer-events-none z-10 relative">
                   <div>
-                    <div className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-white/60 mb-8 transition-transform group-hover:bg-white group-hover:text-black shadow-[0_0_20px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                      ✦
+                    {/* Top Row: Number & Badge */}
+                    <div className="flex items-center justify-between mb-8 w-full text-white/40">
+                      <div className="w-12 h-12 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center font-bold text-base shadow-[0_0_20px_rgba(255,255,255,0.02)] transition-colors group-hover:bg-white group-hover:text-black">
+                        0{i + 1}
+                      </div>
+                      <span className="text-[0.6rem] uppercase tracking-[0.25em] font-bold border border-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
+                        Research
+                      </span>
                     </div>
-                    <h3 className="font-heading text-[1.5rem] text-white/90 font-bold tracking-[-0.02em] mb-4 transition-colors">{p.title}</h3>
-                    <p className="text-[0.95rem] text-white/40 leading-[1.7] max-w-[90%]">{p.desc}</p>
+
+                    {/* Core Text */}
+                    <h3 className="font-heading text-[clamp(1.5rem,3vw,2.2rem)] text-white/95 font-bold tracking-[-0.02em] mb-4 transition-colors uppercase leading-[1.1]">
+                      {p.title}
+                    </h3>
+                    <p className="text-[1.05rem] text-white/40 leading-[1.7] max-w-[95%] font-body">
+                      {p.desc}
+                    </p>
                   </div>
                   
-                  <div className="px-6 py-4 mt-8 rounded-lg bg-white/[0.02] border border-white/[0.03] flex justify-between items-center text-[0.65rem] font-bold text-white/30 tracking-widest uppercase">
+                  {/* Bottom Footer Ribbon */}
+                  <div className="w-full mt-8 rounded-xl bg-white/[0.02] border border-white/[0.03] flex items-center px-5 py-4 text-[0.65rem] font-bold text-white/30 tracking-[0.15em] uppercase backdrop-blur-sm shadow-inner transition-colors">
                     <span>{p.tag}</span>
-                    <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity translate-x-[-10px] group-hover:translate-x-0 duration-300">→</span>
                   </div>
                 </div>
 
