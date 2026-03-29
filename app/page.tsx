@@ -10,12 +10,17 @@ import Experience from "@/components/Experience";
 
 import AiExplorations from "@/components/AiExplorations";
 import About from "@/components/About";
+import AboutMe from "@/components/AboutPage";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 
-const Preloader = dynamic(() => import("@/components/Preloader"), { ssr: false });
-const SmoothScroll = dynamic(() => import("@/components/SmoothScroll"), { ssr: false });
+const Preloader = dynamic(() => import("@/components/Preloader"), {
+  ssr: false,
+});
+const SmoothScroll = dynamic(() => import("@/components/SmoothScroll"), {
+  ssr: false,
+});
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
@@ -40,19 +45,20 @@ export default function Home() {
       <SmoothScroll>
         <main
           className="bg-bg text-white font-body overflow-x-clip cursor-none antialiased"
-          style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.5s ease 0.1s" }}
+          style={{
+            opacity: loaded ? 1 : 0,
+            transition: "opacity 0.5s ease 0.1s",
+          }}
         >
           <Nav />
           <Hero loaded={loaded} />
-    
-          <Marquee />
+          <AboutMe />
           <FeaturedProduct />
-          <Services />
-          <Experience />
-      
           <AiExplorations />
-          <About />
-          <Contact />
+          <Experience />
+          <Services />
+          <Marquee /> 
+        <Contact />
           <Footer />
         </main>
       </SmoothScroll>

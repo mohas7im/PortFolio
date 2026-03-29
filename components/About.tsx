@@ -58,12 +58,7 @@ const STACK = [
   },
 ];
 
-const STATS = [
-  { label:"Years Building",    target:5,   suffix:"+" },
-  { label:"Technologies",      target:20,  suffix:"+" },
-  { label:"Projects Shipped",  target:30,  suffix:"+" },
-  { label:"Passion for Craft", target:100, suffix:"%" },
-];
+
 
 /* ─── Floating particle field ─── */
 const ParticleField = memo(function ParticleField() {
@@ -243,8 +238,6 @@ export default function About() {
   const headingRef  = useRef<HTMLHeadingElement>(null);
   const labelRef    = useRef<HTMLDivElement>(null);
   const bioRef      = useRef<HTMLParagraphElement>(null);
-  const statsRef    = useRef<HTMLDivElement>(null);
-  const statNums    = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -305,25 +298,7 @@ export default function About() {
         });
       }
 
-      /* 6 ── Stats counter */
-      STATS.forEach((s, i) => {
-        const el = statNums.current[i];
-        if (!el) return;
-        const obj = { val: 0 };
-        gsap.to(obj, {
-          val: s.target,
-          duration:1.6, ease:"power2.out",
-          delay: i * 0.08,
-          onUpdate: () => { el.textContent = Math.round(obj.val) + s.suffix; },
-          scrollTrigger:{ trigger:statsRef.current, start:"top 85%", once:true },
-        });
-      });
 
-      /* 7 ── Stats block scale-slam */
-      gsap.from(".stat-item", {
-        scale:1.6, opacity:0, duration:0.7, stagger:0.1, ease:"power4.out",
-        scrollTrigger:{ trigger:statsRef.current, start:"top 85%", once:true },
-      });
 
     }, sectionRef);
 
@@ -376,7 +351,7 @@ export default function About() {
             <h2
               ref={headingRef}
               className="font-heading leading-[0.88] font-black tracking-[-0.05em] uppercase text-white"
-              style={{ fontSize:"clamp(3.5rem,9vw,7.5rem)" }}
+              style={{ fontSize:"clamp(2.2rem, 10.5vw, 7.5rem)" }}
             >
               TOOLS &amp;<br />TECHNOLOGIES
             </h2>
@@ -442,26 +417,7 @@ export default function About() {
           ))}
         </div>
 
-        {/* ── Stats strip ── */}
-        <div
-          ref={statsRef}
-          className="mt-20 pt-10 border-t border-white/[0.06] grid grid-cols-2 md:grid-cols-4 gap-10"
-        >
-          {STATS.map((s, i) => (
-            <div key={s.label} className="stat-item flex flex-col gap-2">
-              <span
-                ref={(el) => { statNums.current[i] = el; }}
-                className="font-heading font-black text-white leading-none tabular-nums"
-                style={{ fontSize:"clamp(2.2rem,4vw,3.2rem)", letterSpacing:"-0.05em" }}
-              >
-                0{s.suffix}
-              </span>
-              <span className="text-[0.6rem] tracking-[0.22em] text-white/30 uppercase font-bold">
-                {s.label}
-              </span>
-            </div>
-          ))}
-        </div>
+
 
       </div>
     </section>

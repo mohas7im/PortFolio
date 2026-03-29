@@ -63,7 +63,7 @@ export default function ProjectPricing({ onOpenDemo }: ProjectPricingProps) {
           <span className="text-black/20">plans</span>
         </h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
         {plans.map((plan, i) => (
           <div
             key={i}

@@ -32,18 +32,8 @@ export default function Experience() {
     if (!sectionRef.current || !triggerRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Pin the left side — DESKTOP ONLY (avoids mobile overlap)
-      ScrollTrigger.matchMedia({
-        "(min-width: 1024px)": function () {
-          ScrollTrigger.create({
-            trigger: triggerRef.current,
-            start: "top 100px",
-            end: "bottom bottom",
-            pin: ".experience-sticky-left",
-            pinSpacing: false,
-          });
-        },
-      });
+      // Native CSS 'sticky' handles the left column holding, no GSAP pin needed.
+
 
       // Individual item reveal — smooth scrub, no jumps
       itemsRef.current.forEach((item, i) => {

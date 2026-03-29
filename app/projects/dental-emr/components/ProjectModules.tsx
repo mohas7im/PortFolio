@@ -89,10 +89,10 @@ export default function ProjectModules({ onOpenDemo }: ProjectModulesProps) {
         style={{ height: `${modules.length * 80}vh` }}
       >
         {/* Sticky panel */}
-        <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center py-20">
+        <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center pt-24 pb-10 lg:py-20">
           
           {/* HEADER (Now pinned inside sticky area) */}
-          <div className="w-full max-w-[1400px] mx-auto px-6 md:px-10 flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10 lg:mb-16">
+          <div className="w-full max-w-[1400px] mx-auto px-6 md:px-10 flex flex-col md:flex-row md:items-end justify-between gap-4 lg:gap-8 mb-6 lg:mb-12">
             <div>
               <div className="sr-label flex items-center gap-3 mb-4 mt-12 md:mt-0">
                 <div className="w-8 h-px bg-black/25" />
@@ -129,10 +129,7 @@ export default function ProjectModules({ onOpenDemo }: ProjectModulesProps) {
             {/* ── LEFT: cycling text ── */}
             <div className="relative flex flex-col justify-center h-full">
               {/* Text panels — stacked + CSS transition between them */}
-              <div
-                className="relative overflow-hidden w-full"
-                style={{ height: "340px" }}
-              >
+              <div className="relative overflow-hidden w-full h-[250px] md:h-[280px] lg:h-[340px]">
                 {modules.map((mod, i) => (
                   <div
                     key={i}
@@ -167,8 +164,8 @@ export default function ProjectModules({ onOpenDemo }: ProjectModulesProps) {
                     </h3>
 
                     <p
-                      className="text-black/50 leading-[1.85] max-w-[38ch]"
-                      style={{ fontSize: "clamp(0.82rem, 1.1vw, 0.94rem)" }}
+                      className="text-black/50 leading-[1.6] md:leading-[1.85] max-w-[38ch]"
+                      style={{ fontSize: "clamp(0.78rem, 1.1vw, 0.94rem)" }}
                     >
                       {mod.desc}
                     </p>
@@ -188,7 +185,7 @@ export default function ProjectModules({ onOpenDemo }: ProjectModulesProps) {
             </div>
 
             {/* ── RIGHT: crossfading images ── */}
-            <div className="relative h-[48vh] lg:h-[55vh] max-h-[580px] w-full mt-8 lg:mt-0">
+            <div className="relative h-[32vh] md:h-[40vh] lg:h-[55vh] max-h-[580px] w-full mt-4 lg:mt-0">
               {modules.map((mod, i) => (
                 <div
                   key={i}

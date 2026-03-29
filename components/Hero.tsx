@@ -277,7 +277,7 @@ export default function Hero({ loaded }: { loaded: boolean }) {
             <span className="text-white/90 text-[0.60rem] tracking-[0.15em] uppercase font-black leading-[1.6]">
               BASED IN KERALA, INDIA
               <br />
-              PASSIONATE IN ARCHITECTURE &amp; UI
+              PASSIONATE IN ARCHITECTURE &amp; AI
             </span>
             <div className="flex flex-col gap-1 mt-6">
               <span className="inline-block text-white/50 text-[0.55rem] tracking-[0.2em] font-black">

@@ -17,6 +17,12 @@ export default function FeaturedProduct() {
     if (!sectionRef.current || !cardRef.current) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
+        ".product-header-wrap",
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
         cardRef.current,
         { scale: 0.96, borderRadius: "20px" },
         {
@@ -39,22 +45,33 @@ export default function FeaturedProduct() {
     <section
       ref={sectionRef}
       id="product"
-      className="relative w-full bg-bg z-[2] border-t border-white/[0.06] px-5 lg:px-12 py-10 lg:py-14"
+      className="relative w-full bg-bg z-[2] border-t border-white/[0.06] px-5 lg:px-12 py-24"
     >
+      {/* Unified Section Header */}
+      <div className="product-header-wrap max-w-[1400px] mx-auto mb-10 md:mb-16">
+        <div className="text-[0.65rem] tracking-[0.2em] text-white/30 mb-6 uppercase font-bold flex items-center gap-3">
+          <div className="w-8 h-px bg-white/30" />
+          02 — FEATURED PRODUCT
+        </div>
+        <h2 className="font-heading text-[clamp(2.5rem,7vw,6rem)] font-bold text-white tracking-[-0.04em] leading-[0.9] uppercase">
+          FEATURED PRODUCT
+        </h2>
+      </div>
+
       {/* ── Card: fixed comfortable height, side margins ── */}
       <div
         ref={cardRef}
-        className="w-full p-6 bg-[#f0f0f0] overflow-hidden will-change-transform flex flex-col lg:flex-row"
-        style={{ borderRadius: "16px", height: "clamp(540px, 68vh, 740px)" }}
+        className="max-w-[1400px] mx-auto w-full p-2 md:p-6 bg-[#f0f0f0] overflow-hidden will-change-transform flex flex-col lg:flex-row h-auto min-h-[540px] lg:h-[clamp(540px,68vh,740px)]"
+        style={{ borderRadius: "16px" }}
       >
         {/* ── Left — text column ───────────────────────── */}
-        <div className="w-full lg:w-[42%] h-full flex flex-col justify-center px-10 lg:px-14 py-12 bg-gradient-to-r from-[#f0f0f0] via-[#f0f0f0]/95 to-transparent shrink-0 relative z-10">
+        <div className="w-full lg:w-[42%] h-full flex flex-col justify-center px-5 py-8 md:px-10 lg:px-14 md:py-12 bg-gradient-to-r from-[#f0f0f0] via-[#f0f0f0]/95 to-transparent shrink-0 relative z-10">
 
           {/* Label */}
           <div className="flex items-center gap-2 mb-6">
             <div className="w-5 h-px bg-black/30" />
             <span className="text-black/35 text-[0.54rem] font-bold tracking-[0.24em] uppercase">
-              02 — Featured Product
+              ENTERPRISE SAAS
             </span>
           </div>
 
@@ -100,7 +117,7 @@ export default function FeaturedProduct() {
         </div>
 
         {/* ── Right — screenshot with rounded terminal chrome ─ */}
-        <div className="flex-1 relative overflow-hidden rounded-xl lg:rounded-2xl border border-black/[0.07] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)]">
+        <div className="flex-1 min-h-[250px] relative overflow-hidden rounded-lg md:rounded-xl lg:rounded-2xl border border-black/[0.07] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)] mt-2 md:mt-0">
           {/* Browser chrome bar */}
           <div className="absolute top-0 left-0 right-0 z-10 flex items-center gap-1.5 px-4 py-2.5 bg-[#181818]/90 backdrop-blur-sm">
             <div className="w-2 h-2 rounded-full bg-[#ff5f56]" />
