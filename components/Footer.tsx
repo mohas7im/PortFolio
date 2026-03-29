@@ -35,10 +35,10 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <span className="text-black/30 text-[0.6rem]">Connect</span>
             {[
-              { label: "LinkedIn", href: "https://linkedin.com/in/hashimshaikk" },
-              { label: "GitHub", href: "https://github.com/hashimshaikk" },
-              { label: "Dribbble", href: "https://dribbble.com" },
-              { label: "Email", href: "mailto:hashimshaikk04@gmail.com" },
+              { label: "LinkedIn", href: "https://www.linkedin.com/in/mohammed-hashim-9824131b5/" },
+              { label: "GitHub", href: "https://github.com/mohas7im" },
+           
+              { label: "Email", href: "mailto:mohammedhashim530@gmail.com" },
             ].map(({ label, href }) => (
               <a
                 key={label}
@@ -59,12 +59,7 @@ export default function Footer() {
 
       {/* Bottom Row */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="flex items-center gap-3">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-[0.65rem] font-black tracking-[0.2em] text-black/40 uppercase">
-            Available for Q2 2026
-          </span>
-        </div>
+        
 
         <span className="text-[0.65rem] font-bold tracking-[0.15em] text-black/30 uppercase">
           © 2026 Hashim — All rights reserved

@@ -482,3 +482,9 @@ body.cursor-hover .cursor__circle {
   -webkit-text-fill-color: #ffffff;
   display: inline-block;
 }
+
+/* Marquee animation for dental-emr strip */
+@keyframes marquee-slide {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

@@ -2,256 +2,354 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "@/lib/gsap";
 
-// ── Log lines with timing + color category ─────────────────────────────────
-const LOGS = [
-  { ms: 200,  level: "fatal", text: "> FATAL: segmentation fault (core dumped)" },
-  { ms: 550,  level: "error", text: "> ERR:   null ptr deref at 0x0000DEAD" },
-  { ms: 850,  level: "warn",  text: "> WARN:  heap corruption — buffer overflow" },
-  { ms: 1100, level: "fatal", text: "> PANIC: stack smashing detected" },
-  { ms: 1400, level: "error", text: "> ERR:   undefined is not a function [runtime:404]" },
-  { ms: 1700, level: "info",  text: "> INFO:  attempting system recovery..." },
-  { ms: 2100, level: "ok",    text: "> OK:    loading hashim.portfolio — stand by" },
-] as const;
-
-const COLOR: Record<string, string> = {
-  fatal: "#ff5f56",
-  error: "#ff9f43",
-  warn:  "#ffd93d",
-  info:  "rgba(255,255,255,0.4)",
-  ok:    "#39FF14",
-};
+// The phrase split into individually-colored words
+const WORDS = [
+  { text: "Build", color: "#ffffff" },
+  { text: "things", color: "#00f5ff" },
+  { text: "that", color: "#ffffff" },
+  { text: "matter", color: "#a855f7" },
+];
 
 export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [shown, setShown]     = useState<number[]>([]);
-  const [progress, setProgress] = useState(0);
-  const [exiting, setExiting]  = useState(false);
-  const [mounted, setMounted]  = useState(true);
+  const panelTopRef = useRef<HTMLDivElement>(null);
+  const panelBotRef = useRef<HTMLDivElement>(null);
+  const phraseRef = useRef<HTMLDivElement>(null);
+  const counterRef = useRef<HTMLDivElement>(null);
+  const fillRef = useRef<HTMLDivElement>(null);
+  const circleRef = useRef<SVGCircleElement>(null);
+
+  const [count, setCount] = useState(0);
+  const [mounted, setMounted] = useState(true);
+
+  const RADIUS = 38;
+  const CIRC = 2 * Math.PI * RADIUS;
 
   useEffect(() => {
+    if (!containerRef.current) return;
+
+    const wordEls =
+      containerRef.current.querySelectorAll<HTMLElement>(".pl-word");
+    const charEls =
+      containerRef.current.querySelectorAll<HTMLElement>(".pl-char");
+
+    const ctx = gsap.context(() => {
+      // ── Phase 1: phrase animation ──
+      const tl = gsap.timeline();
+
+      // All chars hidden initially
+      gsap.set(charEls, { y: "110%", opacity: 0 });
+      gsap.set([counterRef.current, fillRef.current?.parentElement], {
+        opacity: 0,
+      });
+
+      // Stagger each character up — awwwards style
+      tl.to(charEls, {
+        y: "0%",
+        opacity: 1,
+        duration: 0.7,
+        stagger: 0.035,
+        ease: "power4.out",
+        delay: 0.15,
+      });
+
+      // Brief hold, then slide phrase up + fade out
+      tl.to(phraseRef.current, {
+        y: -60,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.in",
+        delay: 0.5,
+      });
+
+      // Counter fades in as phrase leaves
+      tl.to(
+        counterRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.55,
+          ease: "power3.out",
+        },
+        "-=0.25",
+      );
+
+      // Progress bar wrapper
+      tl.to(
+        ".pl-bar-wrap",
+        {
+          opacity: 1,
+          duration: 0.4,
+          ease: "power2.out",
+        },
+        "<",
+      );
+    }, containerRef);
+
+    // ── Phase 2: count up progress ──
     const timers: ReturnType<typeof setTimeout>[] = [];
-
-    // Reveal log lines
-    LOGS.forEach(({ ms }, i) => {
-      timers.push(setTimeout(() => setShown((s) => [...s, i]), ms));
-    });
-
-    // Stuttering progress bar — random increments, finishes ~2.6s
     let prog = 0;
-    const tick = () => {
-      prog += Math.random() * 11 + 3;
-      if (prog >= 100) {
-        prog = 100;
-        setProgress(100);
-        timers.push(setTimeout(() => setExiting(true), 350)); // shake
-        timers.push(setTimeout(() => {
-          if (!containerRef.current) return;
-          gsap.to(containerRef.current, {
-            opacity: 0,
-            yPercent: -4,
-            duration: 0.4,
-            ease: "power3.in",
-            onComplete: () => { setMounted(false); onComplete(); },
-          });
-        }, 700));
-      } else {
-        setProgress(Math.floor(prog));
-        timers.push(setTimeout(tick, 90 + Math.random() * 60));
-      }
-    };
-    timers.push(setTimeout(tick, 200));
 
-    return () => timers.forEach(clearTimeout);
+    const startCount = () => {
+      const tick = () => {
+        prog += Math.random() * 9 + 4;
+        if (prog >= 100) {
+          prog = 100;
+          setCount(100);
+          if (fillRef.current)
+            gsap.to(fillRef.current, {
+              width: "100%",
+              duration: 0.12,
+              ease: "none",
+            });
+          if (circleRef.current)
+            gsap.to(circleRef.current, {
+              strokeDashoffset: 0,
+              duration: 0.12,
+              ease: "none",
+            });
+
+          // Exit after brief pause
+          timers.push(
+            setTimeout(() => {
+              const exit = gsap.timeline({
+                onComplete: () => {
+                  setMounted(false);
+                  onComplete();
+                },
+              });
+              exit
+                .to([counterRef.current, ".pl-bar-wrap"], {
+                  opacity: 0,
+                  y: -10,
+                  duration: 0.35,
+                  stagger: 0.05,
+                  ease: "power3.in",
+                })
+                .to(
+                  panelTopRef.current,
+                  { yPercent: -101, duration: 0.75, ease: "power4.inOut" },
+                  "-=0.1",
+                )
+                .to(
+                  panelBotRef.current,
+                  { yPercent: 101, duration: 0.75, ease: "power4.inOut" },
+                  "<",
+                );
+            }, 350),
+          );
+        } else {
+          setCount(Math.floor(prog));
+          if (fillRef.current)
+            gsap.to(fillRef.current, {
+              width: `${Math.floor(prog)}%`,
+              duration: 0.1,
+              ease: "none",
+            });
+          if (circleRef.current)
+            gsap.to(circleRef.current, {
+              strokeDashoffset: CIRC - (CIRC * Math.floor(prog)) / 100,
+              duration: 0.1,
+              ease: "none",
+            });
+          timers.push(setTimeout(tick, 75 + Math.random() * 65));
+        }
+      };
+      // Start counting ~1.3s after mount (after phrase finishes)
+      timers.push(setTimeout(tick, 1300));
+    };
+
+    startCount();
+
+    return () => {
+      timers.forEach(clearTimeout);
+      ctx.revert();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onComplete]);
 
   if (!mounted) return null;
 
   return (
     <>
-      {/* ── Injected CSS for pseudo-element glitch & scanlines ── */}
       <style>{`
-        @keyframes glitch-a {
-          0%,100%{ clip-path:inset(0 0 97% 0); transform:translate(-4px,0); }
-          20%     { clip-path:inset(25% 0 55% 0); transform:translate(3px,0); }
-          50%     { clip-path:inset(60% 0 20% 0); transform:translate(-2px,0); }
-          80%     { clip-path:inset(85% 0 2% 0);  transform:translate(2px,0); }
+        @keyframes pl-spin { to { transform: rotate(360deg); } }
+        .pl-ring { animation: pl-spin 2.2s linear infinite; transform-origin: center; }
+        @keyframes pl-shimmer {
+          0%   { background-position: -200% center; }
+          100% { background-position: 200% center; }
         }
-        @keyframes glitch-b {
-          0%,100%{ clip-path:inset(0 0 92% 0); transform:translate(3px,0); }
-          30%     { clip-path:inset(45% 0 35% 0); transform:translate(-3px,0); }
-          60%     { clip-path:inset(10% 0 75% 0); transform:translate(1px,0); }
+        .pl-shimmer-border {
+          background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(0,245,255,0.3), rgba(168,85,247,0.3), rgba(255,255,255,0.04));
+          background-size: 300% 100%;
+          animation: pl-shimmer 2.5s linear infinite;
         }
-        @keyframes flicker {
-          0%,100%{ opacity:1; }
-          92%{ opacity:1; } 93%{ opacity:0.3; } 94%{ opacity:1; }
-          96%{ opacity:0.5; } 97%{ opacity:1; }
-        }
-        @keyframes scan {
-          0%  { transform:translateY(-100%); }
-          100%{ transform:translateY(100vh); }
-        }
-        @keyframes shake {
-          0%,100%{ transform:translate(0); }
-          15%{ transform:translate(-5px, 2px) skewX(-1deg); }
-          30%{ transform:translate(5px,-3px)  skewX(1deg); }
-          45%{ transform:translate(-3px, 4px) skewX(-0.5deg); }
-          60%{ transform:translate(4px,-2px); }
-          75%{ transform:translate(-5px,-4px) skewX(1deg); }
-          90%{ transform:translate(3px, 2px); }
-        }
-        @keyframes blink   { 0%,100%{opacity:1} 50%{opacity:0} }
-        @keyframes rgb-in  { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-
-        .gl-title{ position:relative; animation:flicker 3s infinite; }
-        .gl-title::before{
-          content:attr(data-text); position:absolute; top:0; left:0; width:100%; height:100%;
-          color:#00f5ff; animation:glitch-a 1.6s infinite;
-        }
-        .gl-title::after{
-          content:attr(data-text); position:absolute; top:0; left:0; width:100%; height:100%;
-          color:#ff003c; animation:glitch-b 2s infinite;
-        }
-        .scan-overlay::after{
-          content:''; position:absolute; inset:0;
-          background:linear-gradient(transparent,rgba(0,245,255,0.045),transparent);
-          height:60px; width:100%;
-          animation:scan 2.8s linear infinite;
-        }
-        .is-exiting{ animation:shake 0.12s infinite; }
-        .log-line  { animation:rgb-in 0.22s ease forwards; }
       `}</style>
 
-      {/* ── Full screen overlay ── */}
       <div
         ref={containerRef}
-        className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center overflow-hidden scan-overlay ${exiting ? "is-exiting" : ""}`}
-        style={{ fontFamily: "'Courier New', Courier, monospace" }}
+        className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden"
+        aria-hidden="true"
       >
-        {/* Grain */}
+        {/* ── Split panels ── */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-[0.035]"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-          }}
+          ref={panelTopRef}
+          className="absolute inset-x-0 top-0 h-1/2 bg-[#050505]"
+        />
+        <div
+          ref={panelBotRef}
+          className="absolute inset-x-0 bottom-0 h-1/2 bg-[#050505]"
         />
 
-        {/* Horizontal CRT lines */}
+        {/* ── Subtle grid ── */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
+              "linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px)",
+            backgroundSize: "44px 44px",
           }}
         />
 
-        {/* ── Content card ── */}
-        <div className="w-full max-w-[580px] px-6 flex flex-col gap-5">
+        {/* ── Glow orbs ── */}
+        <div className="absolute top-1/4 left-1/3 w-[400px] h-[400px] rounded-full bg-[#00f5ff]/[0.04] blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/3 w-[350px] h-[350px] rounded-full bg-[#a855f7]/[0.04] blur-[100px] pointer-events-none" />
 
-          {/* Error badge */}
-          <div className="border border-red-500/30 bg-red-500/[0.04] px-5 py-4">
-            <div className="text-red-500/60 text-[0.5rem] tracking-[0.35em] uppercase mb-2">
-              ██ CRITICAL SYSTEM FAILURE ██
-            </div>
-            <h1
-              data-text="FATAL: 0x0000DEAD"
-              className="gl-title text-white font-black text-[clamp(1.6rem,4vw,2.5rem)] tracking-[-0.02em] uppercase leading-none"
-            >
-              FATAL: 0x0000DEAD
-            </h1>
-            <div className="text-red-400/50 text-[0.55rem] tracking-widest mt-1.5">
-              SEGMENTATION FAULT — CORE DUMPED — PID 1337
-            </div>
+        {/* ── Centre content ── */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-12 select-none">
+          {/* Phase 1 — Animated phrase */}
+          <div
+            ref={phraseRef}
+            className="flex flex-wrap items-baseline justify-center gap-x-4 gap-y-2 px-8"
+            style={{ maxWidth: 700 }}
+          >
+            {WORDS.map((word, wi) => (
+              <div key={wi} className="pl-word overflow-hidden flex">
+                {word.text.split("").map((char, ci) => (
+                  <span
+                    key={ci}
+                    className="pl-char inline-block font-heading font-black uppercase leading-none"
+                    style={{
+                      fontSize: "clamp(2.8rem, 7vw, 6rem)",
+                      letterSpacing: "-0.04em",
+                      color: word.color,
+                      display: "inline-block",
+                    }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </div>
+            ))}
           </div>
 
-          {/* Stack trace / log */}
-          <div className="border border-white/[0.05] bg-[#050505] p-4">
-            <div className="text-white/15 text-[0.5rem] tracking-[0.3em] uppercase border-b border-white/[0.05] pb-2 mb-3">
-              STDERR OUTPUT
-            </div>
-            <div className="flex flex-col gap-[6px] min-h-[148px]">
-              {LOGS.map(({ text, level }, i) => (
-                <div
-                  key={i}
-                  className={`text-[0.62rem] leading-[1.6] ${shown.includes(i) ? "log-line" : "opacity-0"}`}
-                  style={{ color: COLOR[level] }}
-                >
-                  {text}
-                </div>
-              ))}
-              {/* Blinking cursor */}
+          {/* Phase 2 — Counter + ring */}
+          <div
+            ref={counterRef}
+            className="flex flex-col items-center gap-6"
+            style={{ opacity: 0, transform: "translateY(16px)" }}
+          >
+            {/* Brand */}
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-white/40 inline-block" />
               <span
-                className="text-[0.62rem] text-white/25"
-                style={{ animation: "blink 0.75s step-end infinite" }}
+                className="font-heading text-white/40 uppercase tracking-[0.28em]"
+                style={{ fontSize: "0.6rem" }}
               >
-                █
+                hashim · portfolio
               </span>
             </div>
-          </div>
 
-          {/* Progress bar */}
-          <div className="flex flex-col gap-2">
-            <div className="flex justify-between items-center">
-              <span className="text-[0.5rem] tracking-[0.3em] text-white/20 uppercase">
-                RECOVERY PROGRESS
-              </span>
-              <span
-                className="text-[0.5rem] tracking-[0.2em] font-bold"
-                style={{ color: "#00f5ff", animation: "flicker 1.5s infinite" }}
+            {/* Ring progress */}
+            <div className="relative w-[100px] h-[100px] flex items-center justify-center">
+              <svg
+                className="pl-ring absolute inset-0"
+                viewBox="0 0 88 88"
+                fill="none"
+                width="100%"
+                height="100%"
               >
-                {progress}%
-              </span>
-            </div>
-
-            {/* Track */}
-            <div className="h-[2px] bg-white/[0.05] relative overflow-visible">
-              {/* Fill */}
-              <div
-                className="h-full absolute left-0 top-0"
-                style={{
-                  width: `${progress}%`,
-                  background: "linear-gradient(90deg, rgba(0,245,255,0.4), #00f5ff)",
-                  boxShadow:  "0 0 10px rgba(0,245,255,0.9), 0 0 20px rgba(0,245,255,0.4)",
-                  transition: "width 0.07s linear",
-                }}
-              />
-              {/* Glowing tip */}
-              <div
-                className="absolute top-1/2 -translate-y-1/2 w-[3px] h-[6px]"
-                style={{
-                  left:       `${progress}%`,
-                  background: "#00f5ff",
-                  boxShadow:  "0 0 6px #00f5ff",
-                  animation:  "flicker 0.4s infinite",
-                }}
-              />
-            </div>
-
-            {/* Chunky block bar below (for retro feel) */}
-            <div className="flex gap-[3px] mt-1">
-              {Array.from({ length: 30 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-[4px] flex-1 rounded-sm"
+                {/* Track */}
+                <circle
+                  cx="44"
+                  cy="44"
+                  r={RADIUS}
+                  stroke="rgba(255,255,255,0.06)"
+                  strokeWidth="1.5"
+                />
+                {/* Progress arc — cyan to purple gradient via stroke trick */}
+                <circle
+                  ref={circleRef}
+                  cx="44"
+                  cy="44"
+                  r={RADIUS}
+                  stroke="url(#pl-grad)"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeDasharray={CIRC}
+                  strokeDashoffset={CIRC}
                   style={{
-                    background:
-                      progress >= (i + 1) * (100 / 30)
-                        ? `rgba(0,245,255,${0.3 + Math.sin(i * 0.8) * 0.25})`
-                        : "rgba(255,255,255,0.04)",
+                    transform: "rotate(-90deg)",
+                    transformOrigin: "center",
                   }}
                 />
-              ))}
+                <defs>
+                  <linearGradient
+                    id="pl-grad"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                  >
+                    <stop offset="0%" stopColor="#00f5ff" />
+                    <stop offset="100%" stopColor="#a855f7" />
+                  </linearGradient>
+                </defs>
+              </svg>
+
+              {/* Counter number */}
+              <span
+                className="font-heading text-white font-black tabular-nums z-10"
+                style={{ fontSize: "1.6rem", letterSpacing: "-0.04em" }}
+              >
+                {String(count).padStart(2, "0")}
+                <span className="text-white/30 text-sm font-body ml-0.5">
+                  %
+                </span>
+              </span>
+            </div>
+
+            {/* Thin progress bar */}
+            <div
+              className="pl-bar-wrap w-[200px] flex flex-col items-center gap-2"
+              style={{ opacity: 0 }}
+            >
+              <div className="w-full h-[1px] bg-white/[0.07] relative overflow-hidden rounded-full">
+                <div
+                  ref={fillRef}
+                  className="absolute left-0 top-0 h-full rounded-full"
+                  style={{
+                    width: "0%",
+                    background: "linear-gradient(90deg, #00f5ff, #a855f7)",
+                    boxShadow: "0 0 10px rgba(0,245,255,0.5)",
+                  }}
+                />
+              </div>
+              <span
+                className="font-heading text-white/20 uppercase tracking-[0.3em]"
+                style={{ fontSize: "0.5rem" }}
+              >
+                Loading
+              </span>
             </div>
           </div>
-
-          {/* Footer note */}
-          <div
-            className="text-white/10 text-[0.48rem] tracking-[0.25em] uppercase text-right"
-            style={{ animation: "flicker 4s infinite" }}
-          >
-            hashim.dev — build 2026.03 — DO NOT POWER OFF
-          </div>
         </div>
+
+        {/* ── Shimmer border at center seam ── */}
+        <div
+          className="pl-shimmer-border absolute inset-x-0 pointer-events-none"
+          style={{ top: "calc(50% - 0.5px)", height: "1px" }}
+        />
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 import NextImage from "next/image";
+import Link from "next/link";
 import { forwardRef } from "react";
 
 export interface Product {
@@ -69,10 +70,12 @@ export const FeaturedProductCard = forwardRef<HTMLDivElement, Props>(
                 ))}
               </div>
 
-              <button className="btn-magnetic w-fit flex items-center gap-3 px-6 py-3 bg-black text-white text-[0.65rem] font-black tracking-[0.1em] uppercase rounded-full cursor-none hover:bg-black/80 hover:scale-105 transition-all duration-300 shadow-lg">
-                <span>View Project</span>
-                <span style={{ color: prod.accent }}>→</span>
-              </button>
+              <Link href={`/projects/${prod.title.toLowerCase().replace(/ /g, '-')}`}>
+                <button className="btn-magnetic w-fit flex items-center gap-3 px-6 py-3 bg-black text-white text-[0.65rem] font-black tracking-[0.1em] uppercase rounded-full cursor-none hover:bg-black/80 hover:scale-105 transition-all duration-300 shadow-lg">
+                  <span>View Project</span>
+                  <span style={{ color: prod.accent }}>→</span>
+                </button>
+              </Link>
             </div>
           </div>
 

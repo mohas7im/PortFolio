@@ -30,23 +30,26 @@ export default function AiExplorations() {
       cardsRef.current.forEach((card) => {
         if (!card) return;
         
+        const inner = card.querySelector(".ai-inner") as HTMLDivElement;
         const glow = card.querySelector(".card-glow");
         const content = card.querySelector(".card-inner-content");
         
+        if (!inner) return;
+
         const handleMouseMove = (e: MouseEvent) => {
-          const rect = card.getBoundingClientRect();
+          const rect = inner.getBoundingClientRect();
           const x = e.clientX - rect.left; // x position within the element.
           const y = e.clientY - rect.top;  // y position within the element.
           
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
           
-          const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
-          const rotateY = ((x - centerX) / centerX) * 10;
+          const rotationX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
+          const rotationY = ((x - centerX) / centerX) * 10;
           
-          gsap.to(card, {
-            rotateX,
-            rotateY,
+          gsap.to(inner, {
+            rotationX,
+            rotationY,
             transformPerspective: 1000,
             duration: 0.5,
             ease: "power2.out"
@@ -71,17 +74,17 @@ export default function AiExplorations() {
         };
 
         const handleMouseEnter = () => {
-          gsap.to(card, { scale: 1.02, zIndex: 10, duration: 0.3, ease: "power2.out" });
-          gsap.to(card, { boxShadow: "0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0, 245, 255, 0.05)", duration: 0.3 });
-          card.addEventListener("mousemove", handleMouseMove);
+          gsap.to(inner, { scale: 1.02, zIndex: 10, duration: 0.3, ease: "power2.out" });
+          gsap.to(inner, { boxShadow: "0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0, 245, 255, 0.05)", duration: 0.3 });
+          inner.addEventListener("mousemove", handleMouseMove);
         };
 
         const handleMouseLeave = () => {
-          card.removeEventListener("mousemove", handleMouseMove);
-          gsap.to(card, { 
+          inner.removeEventListener("mousemove", handleMouseMove);
+          gsap.to(inner, { 
             scale: 1, 
-            rotateX: 0, 
-            rotateY: 0, 
+            rotationX: 0, 
+            rotationY: 0, 
             zIndex: 1,
             boxShadow: "none",
             duration: 0.6, 
@@ -95,13 +98,13 @@ export default function AiExplorations() {
           }
         };
 
-        card.addEventListener("mouseenter", handleMouseEnter);
-        card.addEventListener("mouseleave", handleMouseLeave);
+        inner.addEventListener("mouseenter", handleMouseEnter);
+        inner.addEventListener("mouseleave", handleMouseLeave);
         
         return () => {
-          card.removeEventListener("mouseenter", handleMouseEnter);
-          card.removeEventListener("mouseleave", handleMouseLeave);
-          card.removeEventListener("mousemove", handleMouseMove);
+          inner.removeEventListener("mouseenter", handleMouseEnter);
+          inner.removeEventListener("mouseleave", handleMouseLeave);
+          inner.removeEventListener("mousemove", handleMouseMove);
         };
       });
     }, sectionRef);
@@ -130,26 +133,30 @@ export default function AiExplorations() {
             <div
               key={i}
               ref={(el) => { cardsRef.current[i] = el; }}
-              className="product-card group relative bg-[#0A0A0A] border border-white/[0.08] bg-opacity-80 rounded-2xl flex flex-col justify-between min-h-[300px] overflow-hidden transition-colors duration-300 hover:border-white/[0.15]"
-              style={{ transformStyle: "preserve-3d" }}
+              className="product-card-wrapper h-full w-full"
             >
-              <div className="card-inner-content p-10 flex flex-col justify-between h-full pointer-events-none z-10">
-                <div>
-                  <div className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-white/60 mb-8 transition-transform group-hover:bg-white group-hover:text-black shadow-[0_0_20px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                    ✦
+              <div 
+                className="ai-inner group relative bg-[#0A0A0A] border border-white/[0.08] bg-opacity-80 rounded-2xl flex flex-col justify-between min-h-[300px] overflow-hidden transition-colors duration-300 hover:border-white/[0.15] w-full h-full"
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                <div className="card-inner-content p-10 flex flex-col justify-between h-full pointer-events-none z-10">
+                  <div>
+                    <div className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-white/60 mb-8 transition-transform group-hover:bg-white group-hover:text-black shadow-[0_0_20px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                      ✦
+                    </div>
+                    <h3 className="font-heading text-[1.5rem] text-white/90 font-bold tracking-[-0.02em] mb-4 transition-colors">{p.title}</h3>
+                    <p className="text-[0.95rem] text-white/40 leading-[1.7] max-w-[90%]">{p.desc}</p>
                   </div>
-                  <h3 className="font-heading text-[1.5rem] text-white/90 font-bold tracking-[-0.02em] mb-4 transition-colors">{p.title}</h3>
-                  <p className="text-[0.95rem] text-white/40 leading-[1.7] max-w-[90%]">{p.desc}</p>
+                  
+                  <div className="px-6 py-4 mt-8 rounded-lg bg-white/[0.02] border border-white/[0.03] flex justify-between items-center text-[0.65rem] font-bold text-white/30 tracking-widest uppercase">
+                    <span>{p.tag}</span>
+                    <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity translate-x-[-10px] group-hover:translate-x-0 duration-300">→</span>
+                  </div>
                 </div>
-                
-                <div className="px-6 py-4 mt-8 rounded-lg bg-white/[0.02] border border-white/[0.03] flex justify-between items-center text-[0.65rem] font-bold text-white/30 tracking-widest uppercase">
-                  <span>{p.tag}</span>
-                  <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity translate-x-[-10px] group-hover:translate-x-0 duration-300">→</span>
-                </div>
-              </div>
 
-              {/* Dynamic Interactive Glow Map */}
-              <div className="card-glow absolute inset-0 opacity-0 pointer-events-none mix-blend-screen transition-opacity duration-300" />
+                {/* Dynamic Interactive Glow Map */}
+                <div className="card-glow absolute inset-0 opacity-0 pointer-events-none mix-blend-screen transition-opacity duration-300" />
+              </div>
             </div>
           ))}
         </div>

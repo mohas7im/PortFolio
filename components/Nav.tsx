@@ -26,10 +26,15 @@ export default function Nav() {
       // Hide/show on scroll
       ScrollTrigger.create({
         onUpdate: (self) => {
+          if (document.body.getAttribute('data-hide-nav') === 'true') {
+            gsap.to(navRef.current, { y: -130, opacity: 0, duration: 0.4, ease: "power2.inOut", overwrite: "auto" });
+            return;
+          }
+
           if (self.direction === 1 && window.scrollY > 80 && !isTalkOpen) {
-            gsap.to(navRef.current, { y: -120, opacity: 0, duration: 0.4, ease: "power2.in" });
+            gsap.to(navRef.current, { y: -120, opacity: 0, duration: 0.4, ease: "power2.in", overwrite: "auto" });
           } else {
-            gsap.to(navRef.current, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" });
+            gsap.to(navRef.current, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", overwrite: "auto" });
           }
         },
       });

@@ -45,7 +45,7 @@ export default function Home() {
         >
           <Nav />
           <Hero loaded={loaded} />
-          <Statement />
+    
           <Marquee />
           <FeaturedProduct />
           <Services />

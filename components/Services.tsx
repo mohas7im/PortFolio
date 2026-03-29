@@ -6,17 +6,17 @@ import { ServiceCard } from "./ServiceCard";
 const services = [
   {
     num: "01",
-    title: "Full Stack Development",
-    desc: "End-to-end architecture and implementation of scalable web applications. From responsive user interfaces to robust database schemas, ensuring pristine code quality and optimal performance across the entire technology stack.",
-    items: ["React & Next.js Apps", "Node.js Backend", "Django & Python APIs", "Database Design", "Cloud Deployment", "Performance Tuning"],
+    title: "Website Development",
+    desc: "End-to-end architecture and implementation of highly interactive web applications. Focusing on fluid animations, responsive layouts, and breathtaking user interfaces that engage users and drive conversions.",
+    items: ["React & Next.js Apps", "Fluid GSAP Animations", "Responsive Interfaces", "Design Systems", "SEO Optimization", "Web Accessibility"],
     image: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=900",
   },
   {
     num: "02",
-    title: "API Architecture",
-    desc: "Designing secure, high-throughput backend services. Specializing in microservices, rate-limiting, and comprehensive documentation to empower frontend, mobile, and third-party developers.",
-    items: ["REST API Design", "GraphQL Schemas", "Auth & OAuth2", "Rate Limiting", "OpenAPI Docs", "Webhook Systems"],
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900",
+    title: "Backend Development",
+    desc: "Designing secure, high-throughput backend services and powerful database architectures. Specializing in microservices, secure authentication, and complex relational or no-SQL business logic.",
+    items: ["Node.js & Python APIs", "Database Design", "Auth & OAuth2", "Rate Limiting", "System Integrations", "Cloud Deployment"],
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=900",
   },
   {
     num: "03",

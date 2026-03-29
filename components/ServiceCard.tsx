@@ -59,16 +59,16 @@ export const ServiceCard = forwardRef<HTMLDivElement, Props>(
         </div>
 
         {/* ── Body: sub-items + image ── */}
-        <div className="flex-1 flex flex-col lg:grid lg:grid-cols-[1fr_420px]">
+        <div className="flex-1 flex flex-col lg:grid lg:grid-cols-[1fr_550px] min-h-0">
           {/* Left */}
-          <div className="px-6 lg:px-10 py-6 lg:py-8 flex flex-col justify-between gap-8 lg:gap-0">
-            <div className="flex flex-col gap-6">
+          <div className="px-6 lg:px-10 py-6 lg:py-8 flex flex-col gap-6 lg:gap-8 h-full min-h-0">
+            <div className="flex flex-col gap-6 flex-1 lg:min-h-0 lg:overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {/* Added description to fill empty black space */}
               <p className="text-white/60 text-[0.95rem] leading-[1.8] max-w-[480px]">
                 {srv.desc}
               </p>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-x-10 gap-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-x-10 gap-y-4 pb-2">
                 {srv.items.map((item, j) => (
                   <div key={j} className="flex items-center gap-3 text-white/50 text-[0.85rem]">
                     <span className="w-1 h-1 bg-cyan rounded-full shrink-0 shadow-[0_0_8px_#00f5ff]" />
@@ -77,7 +77,8 @@ export const ServiceCard = forwardRef<HTMLDivElement, Props>(
                 ))}
               </div>
             </div>
-            <div className="flex items-center gap-3">
+
+            <div className="flex items-center gap-3 shrink-0 mt-auto pt-2">
               <button className="text-[0.6rem] font-black tracking-[0.2em] uppercase border border-white/20 text-white px-5 py-2.5 rounded-full hover:bg-white hover:text-black transition-all duration-300 cursor-none">
                 View Service Details
               </button>
@@ -92,9 +93,10 @@ export const ServiceCard = forwardRef<HTMLDivElement, Props>(
             <img
               src={srv.image}
               alt={srv.title}
-              className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/5 to-transparent pointer-events-none" />
+            {/* Very subtle gradient just to blend the left edge without making the image look dull */}
+            <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#0a0a0a] to-transparent pointer-events-none" />
           </div>
         </div>
       </div>
