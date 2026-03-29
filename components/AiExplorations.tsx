@@ -116,7 +116,7 @@ export default function AiExplorations() {
       <div className="max-w-[1400px] mx-auto">
         <div className="text-[0.65rem] tracking-[0.2em] text-white/30 mb-8 uppercase font-bold flex items-center gap-3">
           <div className="w-8 h-px bg-white/30" />
-          04 — AI Explorations
+          05 — AI Explorations
         </div>
 
         <div className="flex flex-col lg:flex-row justify-between lg:items-end mb-16 gap-8">

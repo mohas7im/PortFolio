@@ -32,13 +32,17 @@ export default function Experience() {
     if (!sectionRef.current || !triggerRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Pin the left side
-      ScrollTrigger.create({
-        trigger: triggerRef.current,
-        start: "top 100px",
-        end: "bottom bottom",
-        pin: ".experience-sticky-left",
-        pinSpacing: false,
+      // Pin the left side — DESKTOP ONLY (avoids mobile overlap)
+      ScrollTrigger.matchMedia({
+        "(min-width: 1024px)": function () {
+          ScrollTrigger.create({
+            trigger: triggerRef.current,
+            start: "top 100px",
+            end: "bottom bottom",
+            pin: ".experience-sticky-left",
+            pinSpacing: false,
+          });
+        },
       });
 
       // Individual item reveal — smooth scrub, no jumps
@@ -113,10 +117,10 @@ export default function Experience() {
           className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-16 lg:gap-24 relative"
         >
           {/* Sticky Left Section */}
-          <div className="experience-sticky-left h-fit lg:sticky lg:top-[120px]">
+          <div className="experience-sticky-left h-fit lg:sticky lg:top-[120px] mb-10 lg:mb-0">
             <div className="text-[0.65rem] tracking-[0.2em] text-white/30 mb-8 uppercase font-bold flex items-center gap-3">
               <div className="w-8 h-px bg-white/30" />
-              03 — Professional Experience
+              04 — Professional Experience
             </div>
 
             <h2 className="font-heading text-[clamp(3.5rem,7vw,6.5rem)] leading-[0.9] font-bold tracking-[-0.04em] uppercase text-white drop-shadow-lg mb-6">

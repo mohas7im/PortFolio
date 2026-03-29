@@ -121,7 +121,7 @@ export default function Services() {
       <div className="srv-header max-w-[1400px] mx-auto px-6 lg:px-10 pt-20 lg:pt-24 pb-10">
         <div className="text-[0.65rem] tracking-[0.2em] text-white/30 mb-6 uppercase font-bold flex items-center gap-3">
           <div className="w-8 h-px bg-white/30" />
-          02 — Services
+          03 — Services
         </div>
         <h2 className="font-heading text-[clamp(2.5rem,7vw,6rem)] font-bold text-white tracking-[-0.04em] leading-[0.9] uppercase">
           WHAT I DO

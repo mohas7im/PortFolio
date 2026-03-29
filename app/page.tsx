@@ -7,8 +7,7 @@ import Marquee from "@/components/Marquee";
 import FeaturedProduct from "@/components/FeaturedProduct";
 import Services from "@/components/Services";
 import Experience from "@/components/Experience";
-import Statement from "@/components/Statement";
-import Projects from "@/components/Projects";
+
 import AiExplorations from "@/components/AiExplorations";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
@@ -50,7 +49,7 @@ export default function Home() {
           <FeaturedProduct />
           <Services />
           <Experience />
-          <Projects />
+      
           <AiExplorations />
           <About />
           <Contact />
