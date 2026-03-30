@@ -197,14 +197,14 @@ export default function Hero({ loaded }: { loaded: boolean }) {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[100svh] w-full bg-transparent overflow-hidden z-[2]"
+      className="relative md:h-[100svh] w-full bg-transparent overflow-hidden z-[2]"
     >
       <Starfield />
 
       {/* ══════════════════════════════════════
           MOBILE LAYOUT  (hidden md+)
       ══════════════════════════════════════ */}
-      <div className="flex md:hidden flex-col min-h-[100svh] px-5 pt-24 pb-12 relative z-10 justify-center gap-10">
+      <div className="flex md:hidden flex-col px-5 pt-32 pb-16 relative z-10 gap-8">
 
         {/* Top: Index + Title */}
         <div className="flex flex-col gap-4">
