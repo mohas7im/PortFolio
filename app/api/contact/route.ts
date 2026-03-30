@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
@@ -14,39 +16,28 @@ export async function POST(request: Request) {
       );
     }
 
-    // Configure nodemailer transporter using environment variables
-    const transporter = nodemailer.createTransport({
-      service: 'gmail', // Assuming Gmail, but you'll need to configure an App Password
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_APP_PASSWORD, 
-      },
+    const { error } = await resend.emails.send({
+      from: 'Portfolio Contact <onboarding@resend.dev>',
+      to: 'mohammedhashim530@gmail.com',
+      replyTo: email,
+      subject: `New Portfolio Inquiry from ${name}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #111;">
+          <h2 style="border-bottom: 2px solid #06b6d4; padding-bottom: 12px;">New Inquiry from Portfolio Website</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+          <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
+          <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;" />
+          <p><strong>Project Details:</strong></p>
+          <p style="white-space: pre-wrap; background: #f9f9f9; padding: 12px; border-radius: 6px;">${details}</p>
+        </div>
+      `,
     });
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: 'mohammedhashim530@gmail.com',
-      subject: `New Portfolio Inquiry from ${name}`,
-      text: `
-        Name: ${name}
-        Email: ${email}
-        Phone: ${phone || 'N/A'}
-        
-        Project Details:
-        ${details}
-      `,
-      html: `
-        <h3>New Inquiry from Portfolio Website</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
-        <p><strong>Project Details:</strong></p>
-        <p>${details.replace(/\n/g, '<br>')}</p>
-      `,
-    };
-
-    // Send the email
-    await transporter.sendMail(mailOptions);
+    if (error) {
+      console.error('Resend error:', error);
+      return NextResponse.json({ message: 'Failed to send email' }, { status: 500 });
+    }
 
     return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
   } catch (error) {
