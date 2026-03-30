@@ -204,43 +204,46 @@ export default function Hero({ loaded }: { loaded: boolean }) {
       {/* ══════════════════════════════════════
           MOBILE LAYOUT  (hidden md+)
       ══════════════════════════════════════ */}
-      <div className="flex md:hidden flex-col h-full px-5 pt-24 pb-7 relative z-10 gap-5">
+      <div className="flex md:hidden flex-col h-full px-5 pt-20 pb-8 relative z-10">
 
-        {/* Index label */}
-        <div className="hero-corner flex flex-col gap-1">
-          <span className="text-white/30 font-heading text-[0.6rem] tracking-[0.25em] uppercase">01/</span>
-          <span className="text-white/70 text-[0.7rem] font-black tracking-wide font-body leading-snug">
-            From Kerala, IN<br />with passion
-          </span>
-        </div>
+        {/* Top: Index + Title */}
+        <div className="flex flex-col gap-4">
+          <div className="hero-corner flex flex-col gap-0.5">
+            <span className="text-white/30 font-heading text-[0.55rem] tracking-[0.25em] uppercase">01/</span>
+            <span className="text-white/70 text-[0.65rem] font-black tracking-wide font-body leading-snug">
+              From Kerala, IN<br />with passion
+            </span>
+          </div>
 
-        {/* Big title */}
-        <div className="flex flex-col leading-none">
-          <div className="overflow-hidden">
-            <div
-              className="hero-title-line font-heading font-black text-white uppercase"
-              style={{ fontSize: "clamp(2.8rem, 13vw, 4.5rem)", letterSpacing: "-0.04em", lineHeight: 0.88 }}
-            >
-              FULL STACK
+          <div className="flex flex-col leading-none">
+            <div className="overflow-hidden">
+              <div
+                className="hero-title-line font-heading font-black text-white uppercase"
+                style={{ fontSize: "clamp(2.5rem, 13vw, 4.5rem)", letterSpacing: "-0.04em", lineHeight: 0.88 }}
+              >
+                FULL STACK
+              </div>
+            </div>
+            <div className="overflow-hidden">
+              <div
+                className="hero-title-line font-heading font-black text-white uppercase"
+                style={{ fontSize: "clamp(2.5rem, 13vw, 4.5rem)", letterSpacing: "-0.04em", lineHeight: 0.88 }}
+              >
+                DEVELOPER
+              </div>
             </div>
           </div>
-          <div className="overflow-hidden">
-            <div
-              className="hero-title-line font-heading font-black text-white uppercase"
-              style={{ fontSize: "clamp(2.8rem, 13vw, 4.5rem)", letterSpacing: "-0.04em", lineHeight: 0.88 }}
-            >
-              DEVELOPER
-            </div>
+        </div>
+
+        {/* Middle: Centered Static terminal */}
+        <div className="w-full flex-1 flex flex-col items-center justify-center py-6">
+          <div className="w-full max-w-[400px]">
+            <TerminalCard innerRef={terminalRef} />
           </div>
         </div>
 
-        {/* Static terminal */}
-        <div className="w-full">
-          <TerminalCard innerRef={terminalRef} />
-        </div>
-
-        {/* Description + scroll cue */}
-        <div className="hero-subheading mt-auto flex flex-col gap-3">
+        {/* Bottom: Description + scroll cue */}
+        <div className="hero-subheading flex flex-col gap-4 mt-auto">
           <p className="font-body text-[0.8rem] leading-[1.65] text-white/50">
             Engineering future-proof digital architectures through strategic software design and scalable systems.
           </p>
