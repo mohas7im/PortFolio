@@ -119,7 +119,7 @@ export default function Services() {
       className="bg-bg border-t border-white/[0.08] relative z-[2]"
     >
       {/* Normal-flow header */}
-      <div className="srv-header max-w-[1400px] mx-auto px-6 lg:px-10 pt-20 lg:pt-24 pb-10">
+      <div className="srv-header max-w-[1400px] mx-auto px-6 lg:px-10 pt-12 md:pt-20 lg:pt-24 pb-10">
         <div className="text-[0.65rem] tracking-[0.2em] text-white/30 mb-6 uppercase font-bold flex items-center gap-3">
           <div className="w-8 h-px bg-white/30" />
           03 — Services

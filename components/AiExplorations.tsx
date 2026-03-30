@@ -145,7 +145,7 @@ export default function AiExplorations() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="ai" className="h-[100vh] w-full flex flex-col justify-center gap-6 lg:gap-10 pt-[80px] relative bg-bg border-t border-white/[0.08] z-[2] overflow-hidden">
+    <section ref={sectionRef} id="ai" className="min-h-[100vh] md:h-[100vh] w-full flex flex-col justify-center gap-6 lg:gap-10 pt-16 lg:pt-[80px] relative bg-bg border-t border-white/[0.08] z-[2] overflow-hidden">
       
       {/* Header Block — Stays Pinned Automatically via Section parent */}
       <div className="max-w-[1400px] w-full mx-auto px-6 md:px-10 shrink-0">

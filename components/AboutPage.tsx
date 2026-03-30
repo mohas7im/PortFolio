@@ -72,7 +72,7 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <section id="about" className="py-24 relative bg-bg z-[2]">
+    <section id="about" className="py-12 md:py-24 relative bg-bg z-[2]">
       
       {/* Header matching Services / AI Explorations */}
       <div className="about-header-wrap max-w-[1400px] mx-auto px-6 md:px-10 mb-8 md:mb-16">

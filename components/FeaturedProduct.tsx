@@ -45,7 +45,7 @@ export default function FeaturedProduct() {
     <section
       ref={sectionRef}
       id="product"
-      className="relative w-full bg-bg z-[2] border-t border-white/[0.06] px-5 lg:px-12 py-24"
+      className="relative w-full bg-bg z-[2] border-t border-white/[0.06] px-5 lg:px-12 py-12 md:py-24"
     >
       {/* Unified Section Header */}
       <div className="product-header-wrap max-w-[1400px] mx-auto mb-10 md:mb-16">

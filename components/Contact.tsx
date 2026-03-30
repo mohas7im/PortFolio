@@ -198,7 +198,7 @@ export default function Contact() {
       <section
         ref={sectionRef}
         id="contact"
-        className="py-24 px-10 flex justify-center border-t border-white/[0.08] text-center relative z-[2] bg-black overflow-hidden perspective-1000"
+        className="py-12 md:py-24 px-6 md:px-10 flex justify-center border-t border-white/[0.08] text-center relative z-[2] bg-black overflow-hidden perspective-1000"
       >
         {/* Grain Overlay */}
         <div className="section-noise absolute inset-0 z-0 pointer-events-none opacity-[0.03]" />

@@ -286,7 +286,7 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
           <div className="drawer-item mt-8 pt-6 border-t border-black/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-[0.6rem] font-black text-black/20 tracking-[0.3em] uppercase">
             <div className="flex items-center gap-8">
               <a
-                href="mailto:hashimshaikk04@gmail.com"
+                href="mailto:mohammedhashim530@gmail.com"
                 className="text-black/40 hover:text-black transition-colors"
               >
                 Email

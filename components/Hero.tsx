@@ -204,7 +204,7 @@ export default function Hero({ loaded }: { loaded: boolean }) {
       {/* ══════════════════════════════════════
           MOBILE LAYOUT  (hidden md+)
       ══════════════════════════════════════ */}
-      <div className="flex md:hidden flex-col h-full px-5 pt-20 pb-8 relative z-10">
+      <div className="flex md:hidden flex-col min-h-[100svh] px-5 pt-24 pb-12 relative z-10 justify-center gap-10">
 
         {/* Top: Index + Title */}
         <div className="flex flex-col gap-4">
@@ -235,16 +235,16 @@ export default function Hero({ loaded }: { loaded: boolean }) {
           </div>
         </div>
 
-        {/* Middle: Centered Static terminal */}
-        <div className="w-full flex-1 flex flex-col items-center justify-center py-6">
+        {/* Middle: Static terminal */}
+        <div className="w-full flex justify-center">
           <div className="w-full max-w-[400px]">
             <TerminalCard innerRef={terminalRef} />
           </div>
         </div>
 
         {/* Bottom: Description + scroll cue */}
-        <div className="hero-subheading flex flex-col gap-4 mt-auto">
-          <p className="font-body text-[0.8rem] leading-[1.65] text-white/50">
+        <div className="hero-subheading flex flex-col gap-5">
+           <p className="font-body text-[0.8rem] leading-[1.65] text-white/50">
             Engineering future-proof digital architectures through strategic software design and scalable systems.
           </p>
           <div className="flex items-center justify-between">

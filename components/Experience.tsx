@@ -99,7 +99,7 @@ export default function Experience() {
     <section
       ref={sectionRef}
       id="experience"
-      className="bg-bg border-t border-white/[0.08] relative z-[2] py-24"
+      className="bg-bg border-t border-white/[0.08] relative z-[2] py-12 md:py-24"
     >
       <div className="max-w-[1400px] mx-auto px-10">
         <div
