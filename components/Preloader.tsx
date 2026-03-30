@@ -106,7 +106,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
 
   if (!mounted) return null;
 
-  const WORDS = ["Build", "things", "that", "matter"];
+  const WORDS = ["Let's", "build", "something", "that", "matters"];
 
   return (
     <div
