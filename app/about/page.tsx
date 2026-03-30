@@ -25,7 +25,7 @@ export default function About() {
         
         <div className="flex flex-col gap-6 text-[1.1rem] leading-[1.8] mb-16">
           <p>
-            I'm Hashim, a full stack developer and website developer from Kerala, India. I have strong knowledge across both frontend and backend development — designing and building fast, modern, and polished websites and digital products completely from scratch.
+            I&apos;m Hashim, a full stack developer and website developer from Kerala, India. I have strong knowledge across both frontend and backend development — designing and building fast, modern, and polished websites and digital products completely from scratch.
           </p>
           <p>
             On the frontend I work with React, Next.js, TypeScript, Tailwind CSS, and GSAP for high-quality animations and interactions. On the backend I build with Django and Python — creating robust REST APIs, database architecture, and server-side logic. I bring both sides together to deliver complete, production-ready websites and web applications.
