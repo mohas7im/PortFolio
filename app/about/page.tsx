@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AboutPage from "@/components/AboutPage";
+import About from "@/components/About";
 
 export const metadata: Metadata = {
   title: "About Hashim — Full Stack & Website Developer Kerala | React, Next.js, Django, Python",
@@ -12,10 +13,11 @@ export const metadata: Metadata = {
   }
 };
 
-export default function About() {
+export default function AboutPageWrapper() {
   return (
     <main className="bg-bg min-h-screen">
       <AboutPage />
+      <About />
 
       {/* Semantic Keyword-Rich Context Profile — Rendered Visually */}
       <section className="max-w-[1000px] mx-auto px-6 md:px-10 py-24 pb-32 text-white/60 font-body">

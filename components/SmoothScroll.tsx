@@ -12,12 +12,14 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       lenis = new Lenis({
         lerp: 0.08,
         smoothWheel: true,
+        smoothTouch: true, // Enables smooth scroll on mobile touch events
+        touchMultiplier: 2, // Enhances mobile scroll responsiveness
         // ── FIX 1: explicitly set the scroll root to <html> ──
         // Without this, Lenis creates its own scroll container
         // which silently breaks position:sticky on all children.
         wrapper: window,
         content: document.documentElement,
-      });
+      } as any);
 
       // ── FIX 2: sync Lenis scroll time to GSAP ScrollTrigger ──
       // If you use GSAP ScrollTrigger anywhere (e.g. in Services.tsx),

@@ -145,13 +145,13 @@ export default function AiExplorations() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="ai" className="min-h-[100vh] md:h-[100vh] w-full flex flex-col justify-center gap-6 lg:gap-10 pt-16 lg:pt-[80px] relative bg-bg border-t border-white/[0.08] z-[2] overflow-hidden">
+    <section ref={sectionRef} id="ai" className="min-h-[100vh] md:h-[100vh] w-full flex flex-col justify-center gap-6 lg:gap-10 pt-8 lg:pt-[80px] relative bg-bg border-t border-white/[0.08] z-[2] overflow-hidden">
       
       {/* Header Block — Stays Pinned Automatically via Section parent */}
       <div className="max-w-[1400px] w-full mx-auto px-6 md:px-10 shrink-0">
         <div className="ai-header-content text-[0.65rem] tracking-[0.2em] text-white/30 mb-3 uppercase font-bold flex items-center gap-3">
           <div className="w-8 h-px bg-white/30" />
-          05 — AI Explorations
+          04 — AI EXPLORATIONS
         </div>
 
         <div className="ai-header-content flex flex-col lg:flex-row justify-between lg:items-end gap-8">

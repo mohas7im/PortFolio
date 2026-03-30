@@ -308,8 +308,8 @@ export default function About() {
   return (
     <section
       ref={sectionRef}
-      id="about"
-      className="relative py-28 bg-bg border-t border-white/[0.08] z-[2] overflow-hidden"
+      id="tech-stack"
+      className="relative py-12 md:py-24 bg-bg border-t border-white/[0.08] z-[2] overflow-hidden"
     >
       {/* Injected CSS */}
       <style>{`
@@ -342,16 +342,16 @@ export default function About() {
           className="text-[0.65rem] tracking-[0.22em] text-white/30 mb-8 uppercase font-bold flex items-center gap-3"
         >
           <div className="w-8 h-px bg-white/30" />
-          05 — TECH STACK
+          02 — TECH STACK
         </div>
 
         {/* ── Header row ── */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20">
-          <div ref={headWrapRef} style={{ overflow:"hidden" }}>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12 md:mb-20">
+          <div ref={headWrapRef}>
             <h2
               ref={headingRef}
-              className="font-heading leading-[0.88] font-black tracking-[-0.05em] uppercase text-white"
-              style={{ fontSize:"clamp(2.2rem, 10.5vw, 7.5rem)" }}
+              className="font-heading leading-[0.9] font-bold tracking-[-0.04em] uppercase text-white"
+              style={{ fontSize:"clamp(2.5rem, 7vw, 6rem)" }}
             >
               TOOLS &amp;<br />TECHNOLOGIES
             </h2>

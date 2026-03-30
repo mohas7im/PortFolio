@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import NextImage from "next/image";
 
 export interface Service {
   num: string;
@@ -78,22 +79,17 @@ export const ServiceCard = forwardRef<HTMLDivElement, Props>(
               </div>
             </div>
 
-            <div className="flex items-center gap-3 shrink-0 mt-auto pt-2">
-              <button className="text-[0.6rem] font-black tracking-[0.2em] uppercase border border-white/20 text-white px-5 py-2.5 rounded-full hover:bg-white hover:text-black transition-all duration-300 cursor-none">
-                View Service Details
-              </button>
-              <button className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/40 hover:bg-white hover:text-black transition-all duration-300 cursor-none text-sm">
-                ←
-              </button>
-            </div>
+          
           </div>
 
           {/* Right — image */}
           <div className="relative overflow-hidden h-[200px] lg:h-auto border-t border-white/5 lg:border-t-0">
-            <img
+            <NextImage
               src={srv.image}
               alt={srv.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              unoptimized
             />
             {/* Very subtle gradient just to blend the left edge without making the image look dull */}
             <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#0a0a0a] to-transparent pointer-events-none" />

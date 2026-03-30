@@ -110,7 +110,7 @@ export default function Experience() {
           <div className="experience-sticky-left h-fit lg:sticky lg:top-[120px] mb-10 lg:mb-0">
             <div className="text-[0.65rem] tracking-[0.2em] text-white/30 mb-8 uppercase font-bold flex items-center gap-3">
               <div className="w-8 h-px bg-white/30" />
-              04 — Professional Experience
+              05 — PROFESSIONAL EXPERIENCE
             </div>
 
             <h2 className="font-heading text-[clamp(3.5rem,7vw,6.5rem)] leading-[0.9] font-bold tracking-[-0.04em] uppercase text-white drop-shadow-lg mb-6">

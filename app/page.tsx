@@ -53,12 +53,13 @@ export default function Home() {
           <Nav />
           <Hero loaded={loaded} />
           <AboutMe />
+          <About />
           <FeaturedProduct />
           <AiExplorations />
           <Experience />
           <Services />
           <Marquee /> 
-        <Contact />
+          <Contact />
           <Footer />
         </main>
       </SmoothScroll>

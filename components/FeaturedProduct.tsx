@@ -45,13 +45,13 @@ export default function FeaturedProduct() {
     <section
       ref={sectionRef}
       id="product"
-      className="relative w-full bg-bg z-[2] border-t border-white/[0.06] px-5 lg:px-12 py-12 md:py-24"
+      className="relative w-full bg-bg z-[2] border-t border-white/[0.06] px-5 lg:px-12 pt-12 md:pt-24 pb-12 md:pb-16"
     >
       {/* Unified Section Header */}
       <div className="product-header-wrap max-w-[1400px] mx-auto mb-10 md:mb-16">
         <div className="text-[0.65rem] tracking-[0.2em] text-white/30 mb-6 uppercase font-bold flex items-center gap-3">
           <div className="w-8 h-px bg-white/30" />
-          02 — FEATURED PRODUCT
+          03 — FEATURED PRODUCT
         </div>
         <h2 className="font-heading text-[clamp(2.5rem,7vw,6rem)] font-bold text-white tracking-[-0.04em] leading-[0.9] uppercase">
           FEATURED PRODUCT
