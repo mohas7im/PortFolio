@@ -100,9 +100,9 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="manifest" href="/manifest.json" />
+        <StructuredData />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
-        <StructuredData />
         {children}
       </body>
     </html>

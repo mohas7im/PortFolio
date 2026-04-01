@@ -1,0 +1,70 @@
+﻿
+> hashim-portfolio@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.5
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/10) ...
+node.exe : 
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" "
+C:\Users\moham\AppData\R
+oaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo      
+        : NotSpecified: 
+(:    String) [], 
+RemoteExc    eption
+    + 
+FullyQualifiedError    
+Id : NativeCommandErr   
+ or
+ 
+Error occurred 
+prerendering page 
+"/opengraph-image". 
+Read more: https://nextj
+s.org/docs/messages/prer
+ender-error
+
+TypeError: Invalid URL
+    at new URL (node:int
+ernal/url:825:25)
+    at fileURLToPath (no
+de:internal/url:1604:12)
+    at file:///C:/Users/
+moham/Desktop/pprt/PortF
+olio/node_modules/next/d
+ist/compiled/@vercel/og/
+index.node.js:18984:32
+    at ModuleJob.run (no
+de:internal/modules/esm/
+module_job:343:25)
+    at async onImport.tr
+acePromise.__proto__ (no
+de:internal/modules/esm/
+loader:647:26)
+    at async 
+Object.start (C:\Users\m
+oham\Desktop\pprt\PortFo
+lio\.next\server\app\ope
+ngraph-image\route.js:1:
+3318)
+   Generating static pages (2/10) 
+   Generating static pages (4/10) 
+   Generating static pages (7/10) 
+ Γ£ô Generating static pages (10/10)
+
+> Export encountered 
+errors on following 
+paths:
+	
+/opengraph-image/route: 
+/opengraph-image

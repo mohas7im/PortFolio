@@ -12,8 +12,8 @@ export default function StructuredData() {
     },
     "url": "https://mohashim.netlify.app",
     "sameAs": [
-      "https://linkedin.com/in/YOUR_LINKEDIN",
-      "https://github.com/YOUR_GITHUB"
+      "https://linkedin.com/in/mohashim",
+      "https://github.com/mohashim"
     ],
     "knowsAbout": [
       "React", "Next.js", "Django", "Python",

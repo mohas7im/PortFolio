@@ -5,7 +5,7 @@ import { gsap } from "@/lib/gsap";
 const TERMINAL_LINES = [
   { cmd: "$ whoami", out: "fullstack developer · kerala, IN" },
   { cmd: "$ stack --list", out: "django · react · next.js · postgres" },
-  { cmd: "$ product --active", out: "Dental EMR → production" },
+
   { cmd: "$ focus --current", out: "LLMs · RAG · Agents · MCP" },
   { cmd: "$ status", out: "available for new projects ●" },
 ];

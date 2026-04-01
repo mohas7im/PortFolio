@@ -15,12 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8
     },
     {
-      url: "https://mohashim.netlify.app/projects",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8
-    },
-    {
       url: "https://mohashim.netlify.app/projects/dental-emr",
       lastModified: new Date(),
       changeFrequency: "monthly",
