@@ -3,7 +3,7 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Hashim",
-    "alternateName": ["Hashim developer", "Hashim full stack developer", "Hashim website developer"],
+    "alternateName": ["Hashim developer", "Hashim full stack developer", "Hashim website developer", "Hashim hybrhind"],
     "jobTitle": "Full Stack Developer",
     "address": {
       "@type": "PostalAddress",
@@ -14,6 +14,12 @@ export default function StructuredData() {
     "sameAs": [
       "https://linkedin.com/in/mohashim",
       "https://github.com/mohashim"
+    ],
+    "worksFor": [
+      {
+        "@type": "Organization",
+        "name": "Hybrhind Tech"
+      }
     ],
     "knowsAbout": [
       "React", "Next.js", "Django", "Python",

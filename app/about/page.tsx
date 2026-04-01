@@ -3,14 +3,17 @@ import AboutPage from "@/components/AboutPage";
 import About from "@/components/About";
 
 export const metadata: Metadata = {
-  title: "About Hashim — Full Stack & Website Developer Kerala | React, Next.js, Django, Python",
-  description: "Hashim is a full stack and website developer from Kerala, India. Strong in React, Next.js, Django, Python, TypeScript, GSAP, and Tailwind CSS. Available for freelance projects.",
+  title:
+    "About Hashim — Full Stack & Website Developer Kerala | React, Next.js, Django, Python",
+  description:
+    "Hashim is a full stack and website developer from Kerala, India, currently working at Hybrhind Tech. Strong in React, Next.js, Django, Python, TypeScript, GSAP, and Tailwind CSS. Available for freelance projects.",
   alternates: { canonical: "https://mohashim.netlify.app/about" },
   openGraph: {
     title: "About Hashim — Full Stack & Website Developer Kerala",
-    description: "Full stack and website developer from Kerala. React, Next.js, Django, Python, GSAP. Freelance projects welcome.",
-    url: "https://mohashim.netlify.app/about"
-  }
+    description:
+      "Full stack and website developer from Kerala currently working at Hybrhind Tech. React, Next.js, Django, Python, GSAP. Freelance projects welcome.",
+    url: "https://mohashim.netlify.app/about",
+  },
 };
 
 export default function AboutPageWrapper() {
@@ -24,16 +27,27 @@ export default function AboutPageWrapper() {
         <h1 className="text-[2rem] md:text-[3rem] font-heading font-bold text-white/90 mb-8 uppercase tracking-[-0.02em]">
           About Hashim
         </h1>
-        
+
         <div className="flex flex-col gap-6 text-[1.1rem] leading-[1.8] mb-16">
           <p>
-            I&apos;m Hashim, a full stack developer and website developer from Kerala, India. I have strong knowledge across both frontend and backend development — designing and building fast, modern, and polished websites and digital products completely from scratch.
+            I&apos;m Hashim, a full stack developer and website developer from
+            Kerala, India. Based on my experience currently working as a developer at Hybrhind Tech and as a freelancer, I have strong knowledge across both frontend and
+            backend development — designing and building fast, modern, and
+            polished websites and digital products completely from scratch.
           </p>
           <p>
-            On the frontend I work with React, Next.js, TypeScript, Tailwind CSS, and GSAP for high-quality animations and interactions. On the backend I build with Django and Python — creating robust REST APIs, database architecture, and server-side logic. I bring both sides together to deliver complete, production-ready websites and web applications.
+            On the frontend I work with React, Next.js, TypeScript, Tailwind
+            CSS, and GSAP for high-quality animations and interactions. On the
+            backend I build with Django and Python — creating robust REST APIs,
+            database architecture, and server-side logic. I bring both sides
+            together to deliver complete, production-ready websites and web
+            applications.
           </p>
           <p>
-            I take on freelance projects as a full stack developer and website developer for clients across Kerala, India, and internationally. Whether you need a custom website, a SaaS product, or a complex web application — I build it end to end.
+            I take on freelance projects as a full stack developer and website
+            developer for clients across Kerala, India, and internationally.
+            Whether you need a custom website, a SaaS product, or a complex web
+            application — I build it end to end.
           </p>
         </div>
 
@@ -57,15 +71,25 @@ export default function AboutPageWrapper() {
               Tech Stack
             </h2>
             <ul className="flex flex-col gap-3 text-[1rem] marker:text-white/30 list-disc pl-5">
-              <li><strong className="text-white/80 font-normal">Frontend:</strong> React, Next.js, TypeScript, JavaScript, Tailwind CSS, GSAP</li>
-              <li><strong className="text-white/80 font-normal">Backend:</strong> Django, Python, REST APIs</li>
-              <li><strong className="text-white/80 font-normal">Tools:</strong> Git, Vercel, Netlify, Figma</li>
+              <li>
+                <strong className="text-white/80 font-normal">Frontend:</strong>{" "}
+                React, Next.js, TypeScript, JavaScript, Tailwind CSS, GSAP
+              </li>
+              <li>
+                <strong className="text-white/80 font-normal">Backend:</strong>{" "}
+                Django, Python, REST APIs
+              </li>
+              <li>
+                <strong className="text-white/80 font-normal">Tools:</strong>{" "}
+                Git, Vercel, Netlify, Figma
+              </li>
             </ul>
           </div>
         </div>
 
         <p className="mt-16 text-white/50 italic text-sm tracking-wide">
-          Based in Kerala, India — Available for freelance website development and software development projects worldwide.
+          Based in Kerala, India — Available for freelance website development
+          and software development projects worldwide.
         </p>
       </section>
     </main>
